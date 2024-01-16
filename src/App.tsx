@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from 'react'
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PostsPage from './pages/PostsPage';
+import PostDetailPage from './pages/PostDetailPage';
+import { PostsProvider } from './context/PostsContext';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PostsProvider >
+
+      <Router>
+        <Routes>
+          <Route path="/posts" element={<PostsPage />} />
+          <Route path="/post/:id" element={<PostDetailPage />} />
+        </Routes>
+      </Router>
+    </PostsProvider>
   );
-}
+};
 
 export default App;

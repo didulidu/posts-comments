@@ -1,11 +1,15 @@
 import { Post } from "../types/Post";
+import { User } from "../types/User";
 
 const API_BASE_URL = process.env.REACT_APP_API_URL;
 
-// Fetch all posts
-export const fetchPosts = async (): Promise<Post[]> => {
+export const fetchPosts = async (userId?: User['id']): Promise<Post[]> => {
     try {
-        const response = await fetch(`${API_BASE_URL}/posts`);
+        let apiUrl = `${API_BASE_URL}/posts`
+        if (userId) {
+            apiUrl += `?userId=${userId}`
+        }
+        const response = await fetch(apiUrl);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -16,7 +20,7 @@ export const fetchPosts = async (): Promise<Post[]> => {
     }
 };
 
-export const fetchPostById = async (postId: number): Promise<Post> => {
+export const fetchPostById = async (postId: Post['id']): Promise<Post> => {
     try {
         const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
         if (!response.ok) {

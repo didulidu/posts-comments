@@ -15,7 +15,7 @@ export const fetchUsers = async (): Promise<User[]> => {
     }
 };
 
-export const fetchUserById = async (userId: number): Promise<User> => {
+export const fetchUserById = async (userId: User['id']): Promise<User> => {
     try {
         const response = await fetch(`${API_BASE_URL}/users/${userId}`);
         if (!response.ok) {

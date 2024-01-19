@@ -20,7 +20,9 @@
         "react",
         "react-hooks"
     ],
-    "rules": {},
+    "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+    },
     "settings": {
         "react": {
             "version": "detect"

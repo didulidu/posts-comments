@@ -1,21 +1,15 @@
 import { Comment } from "../types/Comment";
 import { Post } from "../types/Post";
 import { User } from "../types/User";
-
-export interface PostsState {
-    posts: Post[];
-    loading: boolean;
-    error: Error | null;
-    commentsByPostId: Record<Post['id'], Comment[]>;
-    usersMap: Record<User['id'], User>;
-}
+import { PostsState } from "./PostsContext";
 
 export type Action =
     | { type: 'SET_POSTS', payload: Post[] }
     | { type: 'SET_LOADING', payload: boolean }
     | { type: 'SET_ERROR', payload: Error | null }
     | { type: 'SET_COMMENTS', payload: { postId: Post['id'], comments: Comment[] } }
-    | { type: 'SET_USERS', payload: Record<User['id'], User> };
+    | { type: 'SET_USERS', payload: Record<User['id'], User> }
+    | { type: 'SET_CURRENT_POST', payload: Post };
 
 const postsReducer = (state: PostsState, action: Action): PostsState => {
     switch (action.type) {
@@ -35,6 +29,11 @@ const postsReducer = (state: PostsState, action: Action): PostsState => {
             };
         case 'SET_USERS':
             return { ...state, usersMap: action.payload };
+        case 'SET_CURRENT_POST':
+            return {
+                ...state,
+                currentPost: action.payload
+            }
         default:
             return state;
     }

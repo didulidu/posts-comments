@@ -7,12 +7,14 @@ interface SearchPostsProps {
 }
 
 const SearchPosts: FC<SearchPostsProps> = ({ onChange }) => {
-    const [searchQuery, setSearchQuery] = useState('');
+    const [searchQuery, setSearchQuery] = useState<string | null>(null);
     const debouncedSearchQuery = useDebounce(searchQuery, 500);
 
 
     useEffect(() => {
-        onChange(debouncedSearchQuery)
+        if (debouncedSearchQuery !== null) {
+            onChange(debouncedSearchQuery)
+        }
     }, [debouncedSearchQuery]);
 
 

@@ -6,6 +6,7 @@ import { User } from '../types/User';
 import { fetchCommentsByPost } from '../services/commentService';
 import { Post } from '../types/Post';
 import useCache from './useCache';
+import { getUserByUsername } from '../utils/users';
 
 const usePostsActions = () => {
     const { usersMap } = useContext(PostsContext);
@@ -29,7 +30,7 @@ const usePostsActions = () => {
         } finally {
             dispatch?.({ type: 'SET_LOADING', payload: false });
         }
-    }, [dispatch, getItem, setItem]);
+    }, [dispatch]);
 
     const getCommentsForPost = useCallback(async (postId: Post['id']) => {
         try {
@@ -49,16 +50,16 @@ const usePostsActions = () => {
 
     const searchPostsByUser = useCallback(async (username?: User['username']) => {
         dispatch?.({ type: "SET_LOADING", payload: true })
-
         try {
-            const user = Object.values(usersMap).find(user => {
-                return user.username.toLowerCase() === username?.toLowerCase()
-            })
-
-            const postsData = await fetchPosts(user?.id)
-
-
-            dispatch?.({ type: "SET_POSTS", payload: postsData })
+            const user = getUserByUsername(usersMap, username)
+            if (user || !username) {
+                const postsData = await fetchPosts(user?.id)
+                dispatch?.({ type: "SET_POSTS", payload: postsData })
+                return
+            }
+            if (username) {
+                dispatch?.({ type: "SET_POSTS", payload: [] })
+            }
         } catch (err) {
             if (err instanceof Error) {
                 dispatch?.({ type: "SET_ERROR", payload: err })
@@ -73,7 +74,7 @@ const usePostsActions = () => {
     const getPostById = useCallback(async (postId: Post['id']) => {
         try {
             const post = await fetchPostById(postId);
-            return post
+            dispatch?.({ type: "SET_CURRENT_POST", payload: post })
         } catch (err) {
             if (err instanceof Error) {
                 dispatch?.({ type: "SET_ERROR", payload: err })
@@ -83,7 +84,21 @@ const usePostsActions = () => {
         }
     }, [dispatch]);
 
-    return { getPostsAndUsers, getCommentsForPost, searchPostsByUser, getPostById };
+    const getPostWithComments = useCallback(async (postId: Post['id']) => {
+        try {
+            const [post, comments] = await Promise.all([fetchPostById(postId), fetchCommentsByPost(postId)]);
+            dispatch?.({ type: "SET_CURRENT_POST", payload: post })
+            dispatch?.({ type: 'SET_COMMENTS', payload: { postId, comments } }); dispatch?.({ type: "SET_CURRENT_POST", payload: post })
+        } catch (err) {
+            if (err instanceof Error) {
+                dispatch?.({ type: "SET_ERROR", payload: err })
+            } else {
+                dispatch?.({ type: "SET_ERROR", payload: new Error('Error fetching post') })
+            }
+        }
+    }, [getPostById, getCommentsForPost])
+
+    return { getPostWithComments, getPostsAndUsers, getCommentsForPost, searchPostsByUser, getPostById };
 };
 
 export default usePostsActions;

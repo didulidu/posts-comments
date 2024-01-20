@@ -20,13 +20,12 @@ export const fetchPosts = async (userId?: User['id']): Promise<Post[]> => {
     }
 };
 
-export const fetchPostById = (postId: Post['id']): Promise<Post> => {
-    const fetchPromise = fetch(`${API_BASE_URL}/posts/${postId}`)
-        .then(response => response.json() as Promise<Post>);
-
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            fetchPromise.then(resolve).catch(reject);
-        }, 3000);
-    });
+export const fetchPostById = async (postId: Post['id']): Promise<Post> => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/posts/${postId}`);
+        return await response.json() as Post;
+    } catch (error) {
+        console.error(`There was a problem fetching post ${postId}:`, error);
+        throw error;
+    }
 };

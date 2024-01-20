@@ -4,20 +4,22 @@ import { Comment } from '../types/Comment'
 import { User } from '../types/User';
 import postsReducer, { Action } from './postsReducer';
 
-interface PostsState {
-    posts: Post[];
+export interface PostsState {
+    posts: Post[] | null;
     loading: boolean;
     error: Error | null;
     commentsByPostId: Record<Post['id'], Comment[]>;
     usersMap: Record<User['id'], User>;
+    currentPost: Post | null
 }
 
 const initialState: PostsState = {
-    posts: [],
+    posts: null,
     loading: false,
     error: null,
     commentsByPostId: {},
     usersMap: {},
+    currentPost: null
 };
 
 export const PostsContext = createContext<PostsState>(initialState);

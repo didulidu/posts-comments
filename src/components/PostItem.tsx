@@ -4,16 +4,15 @@ import { User } from '../types/User';
 import { usePosts } from '../context/PostsContext';
 import { ChevronForwardOutline } from 'react-ionicons'
 import { useNavigate } from 'react-router-dom';
-import CommentItem from './CommentItem';
 import Container from './Container';
 import withMessage from './withMessage'
 import usePostsActions from '../hooks/usePostsActions';
-
+import GoToPostButton from './GoToPostButton';
+import CommentsList from './CommentsList';
 
 interface PostItemProps {
     post: Post;
     user: User;
-    onShowComments: (postId: Post['id']) => void;
 }
 
 const PostItem: React.FC<PostItemProps> = ({ post, user }) => {
@@ -33,15 +32,11 @@ const PostItem: React.FC<PostItemProps> = ({ post, user }) => {
     };
 
     return (
-        <Container aditionalStyle="border-2 border-gray-300 bg-gray-50 rounded-lg overflow-hidden shadow-lg mb-6 transform transition duration-500 hover:shadow-xl hover:scale-105">
+        <Container
+            aditionalStyle="border-2 bg-gray-50 rounded-lg shadow-lg mb-6 transform transition duration-500 hover:scale-105"
+        >
             <div className="p-4">
-                <div className="absolute top-4 right-4 bg-gray-200 rounded-full w-8 h-8 flex justify-center items-center" onClick={() => { navigate(`/post/${post.id}`) }}>
-                    <ChevronForwardOutline
-                        color={'#7ec4e2'}
-                        height="20px"
-                        width="20px"
-                    />
-                </div>
+                <GoToPostButton IconComponent={ChevronForwardOutline} onClick={() => { navigate(`/post/${post.id}`) }} />
                 <h2 className="text-2xl font-semibold mb-2 text-gray-800">{post.title}</h2>
                 <p className="text-gray-600">Posted by: <span className="font-medium text-gray-800">{user.username}</span></p>
             </div>
@@ -57,14 +52,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, user }) => {
             {showComments && commentsByPostId[post.id] && (
                 <div className="p-4 bg-white">
                     <h3 className="font-semibold mb-2 text-gray-800">Comments:</h3>
-                    {commentsByPostId[post.id].map(({ id, name, body, email }) => (
-                        <CommentItem
-                            key={id}
-                            name={name}
-                            body={body}
-                            email={email}
-                        />
-                    ))}
+                    <CommentsList comments={commentsByPostId[post.id]} />
                 </div>
             )}
         </Container>

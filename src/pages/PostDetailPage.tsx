@@ -1,32 +1,22 @@
 import React, { useParams } from "react-router-dom"
 import { usePosts } from "../context/PostsContext"
-import { useEffect, useState } from "react"
-import { Post } from "../types/Post"
+import { useEffect } from "react"
 import CommentItem from "../components/CommentItem"
 import Loader from "../components/Loader"
 import Header from "../components/Header"
 import usePostsActions from "../hooks/usePostsActions"
 
 const PostDetailPage = () => {
-    const { getPostById, getCommentsForPost } = usePostsActions()
-    const { commentsByPostId } = usePosts()
+    const { getPostWithComments } = usePostsActions()
+    const { commentsByPostId, currentPost: post } = usePosts()
     const { id } = useParams()
-    const [post, setPost] = useState<Post>()
 
     const postId = Number(id)
     useEffect(() => {
-        const getPost = async () => {
-            const postResponse = await getPostById(postId)
-            await getCommentsForPost(postId)
-            if (postResponse) {
-                setPost(postResponse)
-            }
-        }
-        getPost()
-
+        getPostWithComments(postId)
     }, [])
 
-    if (!post) {
+    if (!post || !commentsByPostId[postId]?.length) {
         return <Loader label="Loading post..." />
     }
 

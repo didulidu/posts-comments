@@ -1,12 +1,13 @@
-import { useState, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
+
 type CacheData = Record<string, { data: any; timestamp: number }>;
 
 function useCache(timeout: number = 5000) {
-    const [cache, setCache] = useState<CacheData>({});
+    const cache = useRef<CacheData>({}).current;
 
     const setItem = useCallback((key: string, data: any) => {
         const cachedItem = { data, timestamp: Date.now() };
-        setCache(prevCache => ({ ...prevCache, [key]: cachedItem }));
+        cache[key] = cachedItem;
     }, []);
 
     const getItem = useCallback((key: string): any | null => {
@@ -15,7 +16,7 @@ function useCache(timeout: number = 5000) {
 
         const isExpired = Date.now() - cachedItem.timestamp > timeout;
         return isExpired ? null : cachedItem.data;
-    }, [cache, timeout]);
+    }, [timeout]);
 
     return { setItem, getItem };
 }

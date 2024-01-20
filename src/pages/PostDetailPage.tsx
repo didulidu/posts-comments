@@ -7,7 +7,7 @@ import Loader from "../components/Loader"
 import Header from "../components/Header"
 
 const PostDetailPage = () => {
-    const { getPostById, getCommentsForPost, commentsByPostId } = usePosts()
+    const { commentsByPostId } = usePosts()
     const { id } = useParams()
     const [post, setPost] = useState<Post>()
 

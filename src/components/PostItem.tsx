@@ -6,7 +6,8 @@ import { ChevronForwardOutline } from 'react-ionicons'
 import { useNavigate } from 'react-router-dom';
 import CommentItem from './CommentItem';
 import Container from './Container';
-import withMessage from '../context/withMessage';
+import withMessage from './withMessage'
+import usePostsActions from '../hooks/usePostsActions';
 
 
 interface PostItemProps {
@@ -17,7 +18,8 @@ interface PostItemProps {
 
 const PostItem: React.FC<PostItemProps> = ({ post, user }) => {
     const [showComments, setShowComments] = useState(false);
-    const { commentsByPostId, getCommentsForPost } = usePosts();
+    const { commentsByPostId } = usePosts();
+    const { getCommentsForPost } = usePostsActions()
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 

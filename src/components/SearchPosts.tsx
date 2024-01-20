@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import useDebounce from '../hooks/useDebounce';
-import withMessage from '../context/withMessage';
+import withMessage from './withMessage'
 
 interface SearchPostsProps {
     onChange: (search: string) => void

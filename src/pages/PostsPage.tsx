@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePosts } from '../context/PostsContext';
 import PostItem from '../components/PostItem';
 import SearchPosts from '../components/SearchPosts';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
-import withMessage from '../context/withMessage';
+import withMessage from '../components/withMessage';
+import usePostsActions from '../hooks/usePostsActions';
 
 const PostsPage = () => {
-    const { posts, usersMap, loading, error, searchPostsByUser } = usePosts();
+    const { posts, usersMap, loading, error } = usePosts();
+    const { getPostsAndUsers, searchPostsByUser } = usePostsActions()
+
+    useEffect(() => {
+        getPostsAndUsers()
+    }, [])
 
     if (error) return <div>Error loading posts: {error.message}</div>;
 

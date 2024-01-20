@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Comment } from '../types/Comment'
 import Container from './Container';
+import withMessage from './withMessage';
 
 type CommentProps = {
     name: Comment['name'];
@@ -18,4 +19,4 @@ const CommentItem: FC<CommentProps> = ({ name, body, email }) => {
     )
 }
 
-export default CommentItem
+export default withMessage(CommentItem)

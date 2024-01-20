@@ -1,5 +1,5 @@
 import React, { ComponentType, useEffect } from 'react';
-import { useMessage } from './MessageContext';
+import { useMessage } from '../context/MessageContext';
 
 const withMessage = (Component: ComponentType<any>) => {
     return function Foo(props: any) {

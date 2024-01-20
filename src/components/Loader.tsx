@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ApertureOutline } from 'react-ionicons'
-import withMessage from '../context/withMessage'
+import withMessage from './withMessage'
 
 type LoaderProps = {
     label?: string

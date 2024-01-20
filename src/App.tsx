@@ -1,11 +1,10 @@
-import React, { Suspense } from 'react'
+import React from 'react'
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PostsPage from './pages/PostsPage';
 import { PostsProvider } from './context/PostsContext';
 import { MessageProvider } from './context/MessageContext';
-import Loader from './components/Loader';
-import PostDetailPageWrapper from './pages/PostDetailPageWrapper';
+import PostDetailPage from './pages/PostDetailPage';
 // TODO
 // - Testovi
 
@@ -18,9 +17,7 @@ const App = () => {
             <Route path={"/"} element={<PostsPage />} />
             <Route path={"/posts"} element={<PostsPage />} />
             <Route path="/post/:id" element={
-              <Suspense fallback={<Loader label="loading post..." />}>
-                <PostDetailPageWrapper />
-              </Suspense>
+              <PostDetailPage />
             } />
           </Routes>
         </Router>

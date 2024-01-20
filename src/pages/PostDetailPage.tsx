@@ -5,8 +5,10 @@ import { Post } from "../types/Post"
 import CommentItem from "../components/CommentItem"
 import Loader from "../components/Loader"
 import Header from "../components/Header"
+import usePostsActions from "../hooks/usePostsActions"
 
 const PostDetailPage = () => {
+    const { getPostById, getCommentsForPost } = usePostsActions()
     const { commentsByPostId } = usePosts()
     const { id } = useParams()
     const [post, setPost] = useState<Post>()

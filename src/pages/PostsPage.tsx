@@ -18,9 +18,7 @@ const PostsPage = () => {
     if (error) return <div>Error loading posts: {error.message}</div>;
 
     const performSearch = async (query: string) => {
-        if (query.trim()) {
-            searchPostsByUser(query.trim())
-        }
+        searchPostsByUser(query.trim())
     }
 
     return (

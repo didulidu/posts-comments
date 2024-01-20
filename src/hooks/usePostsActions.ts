@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react';
 import { PostsContext, PostsDispatchContext } from '../context/PostsContext';
-import { fetchPosts } from '../services/postService';
+import { fetchPostById, fetchPosts } from '../services/postService';
 import { fetchUsers } from '../services/userService';
 import { User } from '../types/User';
 import { fetchCommentsByPost } from '../services/commentService';
@@ -51,10 +51,12 @@ const usePostsActions = () => {
         dispatch?.({ type: "SET_LOADING", payload: true })
 
         try {
-            const userId = Object.values(usersMap).find(user => {
+            const user = Object.values(usersMap).find(user => {
                 return user.username.toLowerCase() === username?.toLowerCase()
             })
-            const postsData = await fetchPosts(userId?.id)
+
+            const postsData = await fetchPosts(user?.id)
+
 
             dispatch?.({ type: "SET_POSTS", payload: postsData })
         } catch (err) {
@@ -68,7 +70,20 @@ const usePostsActions = () => {
         }
     }, [usersMap, dispatch])
 
-    return { getPostsAndUsers, getCommentsForPost, searchPostsByUser };
+    const getPostById = useCallback(async (postId: Post['id']) => {
+        try {
+            const post = await fetchPostById(postId);
+            return post
+        } catch (err) {
+            if (err instanceof Error) {
+                dispatch?.({ type: "SET_ERROR", payload: err })
+            } else {
+                dispatch?.({ type: "SET_ERROR", payload: new Error('Error fetching post') })
+            }
+        }
+    }, [dispatch]);
+
+    return { getPostsAndUsers, getCommentsForPost, searchPostsByUser, getPostById };
 };
 
 export default usePostsActions;

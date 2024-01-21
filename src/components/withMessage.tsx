@@ -1,16 +1,13 @@
-import React, { ComponentType, useEffect } from 'react';
+import React, { ComponentType } from 'react';
 import { useMessage } from '../context/MessageContext';
 
 const withMessage = (Component: ComponentType<any>) => {
-    return function Foo(props: any) {
-        const message = useMessage();
-        const componentName = Component.name;
-        useEffect(() => {
-            console.log(`${message} ${componentName}`);
-        }, [componentName, message]);
-
-        return <Component {...props} message={message} />;
+    const HOCComponent = (props: any) => {
+        const message = useMessage()
+        return <Component {...props} logMessage={message} />
     };
+
+    return HOCComponent
 };
 
 export default withMessage;

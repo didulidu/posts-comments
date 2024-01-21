@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Comment } from '../types/Comment'
 import Container from './Container';
 import withMessage from './withMessage';
+import withLogger from './withLogger';
 
 type CommentProps = {
     name: Comment['name'];
@@ -19,4 +20,4 @@ const CommentItem: FC<CommentProps> = ({ name, body, email }) => {
     )
 }
 
-export default withMessage(CommentItem)
+export default withMessage(withLogger(CommentItem));

@@ -9,6 +9,7 @@ import withMessage from './withMessage'
 import usePostsActions from '../hooks/usePostsActions';
 import GoToPostButton from './GoToPostButton';
 import CommentsList from './CommentsList';
+import withLogger from './withLogger';
 
 interface PostItemProps {
     post: Post;
@@ -59,5 +60,4 @@ const PostItem: React.FC<PostItemProps> = ({ post, user }) => {
     );
 };
 
-export default withMessage(PostItem);
-
+export default withMessage(withLogger(PostItem));

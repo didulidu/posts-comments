@@ -4,14 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ErrorBoundary from './components/ErrorBoundary';
+import { MessageProvider } from './context/MessageContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <ErrorBoundary fallback={<h1>Error caught by global ErrorBoundary</h1>}>
-    <App />
-  </ErrorBoundary>
+  <MessageProvider message="Hello from">
+    <ErrorBoundary fallback={<h1>Error caught by global ErrorBoundary</h1>}>
+      <App />
+    </ErrorBoundary>
+  </MessageProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import withMessage from './withMessage';
+import withLogger from './withLogger';
 
 interface ErrorBoundaryState {
     hasError: boolean;
@@ -33,4 +34,4 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     }
 }
 
-export default withMessage(ErrorBoundary);
+export default withMessage(withLogger(ErrorBoundary));

@@ -3,6 +3,7 @@ import { Post } from '../types/Post'
 import PostItem from './PostItem'
 import { usePosts } from '../context/PostsContext'
 import withMessage from './withMessage'
+import withLogger from './withLogger'
 interface PostsListProps {
     posts: Post[]
 }
@@ -18,4 +19,4 @@ const PostsList: FC<PostsListProps> = ({ posts }) => {
     </div>
 }
 
-export default withMessage(PostsList)
+export default withMessage(withLogger(PostsList));

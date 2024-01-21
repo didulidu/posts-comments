@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC, useEffect, useState } from 'react'
 import useDebounce from '../hooks/useDebounce';
 import withMessage from './withMessage'
+import withLogger from './withLogger';
 
 interface SearchPostsProps {
     onChange: (search: string) => void
@@ -32,4 +33,4 @@ const SearchPosts: FC<SearchPostsProps> = ({ onChange }) => {
     )
 }
 
-export default withMessage(SearchPosts)
+export default withMessage(withLogger(SearchPosts));

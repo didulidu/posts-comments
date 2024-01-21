@@ -5,6 +5,8 @@ import CommentItem from "../components/CommentItem"
 import Loader from "../components/Loader"
 import Header from "../components/Header"
 import usePostsActions from "../hooks/usePostsActions"
+import withMessage from "../components/withMessage"
+import withLogger from "../components/withLogger"
 
 const PostDetailPage = () => {
     const { getPostWithComments } = usePostsActions()
@@ -43,4 +45,4 @@ const PostDetailPage = () => {
     );
 }
 
-export default PostDetailPage
+export default withMessage(withLogger(PostDetailPage));

@@ -1,5 +1,6 @@
 import React from 'react';
 import withMessage from './withMessage';
+import withLogger from './withLogger';
 
 type NavigationIconProps = {
     IconComponent: React.ComponentType<{ color: string, height: string, width: string }>;
@@ -15,4 +16,4 @@ const GoToPostButton: React.FC<NavigationIconProps> = ({ IconComponent, onClick 
     );
 };
 
-export default withMessage(GoToPostButton);
+export default withMessage(withLogger(GoToPostButton));

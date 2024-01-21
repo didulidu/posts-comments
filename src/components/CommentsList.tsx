@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Comment } from '../types/Comment'
 import CommentItem from './CommentItem'
 import withMessage from './withMessage'
+import withLogger from './withLogger'
 
 interface CommentsListProps {
     comments: Comment[]
@@ -22,4 +23,4 @@ const CommentsList: FC<CommentsListProps> = ({ comments }) => {
     </>)
 }
 
-export default withMessage(CommentsList)
+export default withMessage(withLogger(CommentsList));

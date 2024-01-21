@@ -3,9 +3,10 @@ import { usePosts } from '../context/PostsContext';
 import SearchPosts from '../components/SearchPosts';
 import Header from '../components/Header';
 import Loader from '../components/Loader';
-import withMessage from '../components/withMessage';
+import withMessage from '../components/withLogger';
 import usePostsActions from '../hooks/usePostsActions';
 import PostsList from '../components/PostsList';
+import withLogger from '../components/withLogger';
 
 const PostsPage = () => {
     const { posts, loading, error } = usePosts();
@@ -36,4 +37,4 @@ const PostsPage = () => {
     );
 };
 
-export default withMessage(PostsPage);
+export default withMessage(withLogger(PostsPage));

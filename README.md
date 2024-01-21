@@ -3,10 +3,10 @@ Time needed to finish the assignment: Honestly, I don't know. I've worked for ab
 
 Also, I would usually put tests in the folders of components:
 
--MyComponent
-    |- MyComponent.tsx
-    |- MyComponent.test.tsx
-    |- index.ts
+MyComponent  
+&nbsp;|- MyComponent.tsx  
+&nbsp;|- MyComponent.test.tsx  
+&nbsp;|- index.ts
 
 But since I wrote test coverage last minute and hadn't created folders, I just put it in test folder. 
 

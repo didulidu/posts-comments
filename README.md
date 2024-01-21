@@ -1,3 +1,15 @@
+# Note
+Time needed to finish the assignment: Honestly, I don't know. I've worked for about 3-4 afternoons with around 4 hours each. Needed to make a pause a couple of times bc of other activities. Greetings from Jahorina! ⛷️
+
+Also, I would usually put tests in the folders of components:
+
+-MyComponent
+    |- MyComponent.tsx
+    |- MyComponent.test.tsx
+    |- index.ts
+
+But since I wrote test coverage last minute and hadn't created folders, I just put it in test folder. 
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

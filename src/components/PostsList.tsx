@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Post } from '../types/Post'
+import { Post } from '../types'
 import PostItem from './PostItem'
 import { usePosts } from '../context/PostsContext'
 import withMessage from './withMessage'

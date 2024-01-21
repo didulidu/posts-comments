@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import React, { renderHook, act } from '@testing-library/react';
 import useCache from '../hooks/useCache';
 
 describe('useCache', () => {

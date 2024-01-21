@@ -1,7 +1,5 @@
 import React, { createContext, useContext, ReactNode, useReducer, Dispatch } from 'react';
-import { Post } from '../types/Post';
-import { Comment } from '../types/Comment'
-import { User } from '../types/User';
+import { Post, User, Comment } from '../types';
 import postsReducer, { Action } from './postsReducer';
 
 export interface PostsState {

@@ -1,4 +1,4 @@
-import { User } from "../types/User";
+import { User } from "../types";
 
 export const getUserByUsername = (usersMap: Record<User['id'], User>, username?: User['username']): User | null => {
     const user = Object.values(usersMap).find(user => {

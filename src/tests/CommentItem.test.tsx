@@ -16,7 +16,7 @@ describe('CommentItem', () => {
     });
     test('renders within a Container component', () => {
         const { container } = render(<CommentItem {...mockComment} />);
-        expect(container.firstChild).toHaveClass('comment-animate'); // Replace 'container-class' with the actual class or identifier of your Container component
+        expect(container.firstChild).toHaveClass('comment-animate');
     });
 
 });

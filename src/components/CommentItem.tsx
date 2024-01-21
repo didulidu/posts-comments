@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Comment } from '../types/Comment'
+import { Comment } from '../types'
 import Container from './Container';
 import withMessage from './withMessage';
 import withLogger from './withLogger';

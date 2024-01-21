@@ -2,9 +2,8 @@ import { useCallback, useContext } from 'react';
 import { PostsContext, PostsDispatchContext } from '../context/PostsContext';
 import { fetchPostById, fetchPosts } from '../services/postService';
 import { fetchUsers } from '../services/userService';
-import { User } from '../types/User';
+import { User, Post } from '../types';
 import { fetchCommentsByPost } from '../services/commentService';
-import { Post } from '../types/Post';
 import useCache from './useCache';
 import { getUserByUsername } from '../utils/users';
 

@@ -1,5 +1,4 @@
-import { Comment } from "../types/Comment";
-import { Post } from "../types/Post";
+import { Comment, Post } from "../types";
 
 const API_BASE_URL = process.env.REACT_APP_API_URL;
 

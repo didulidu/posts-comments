@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Post } from '../types/Post';
-import { User } from '../types/User';
+import { Post, User } from '../types';
 import { usePosts } from '../context/PostsContext';
 import { ChevronForwardOutline } from 'react-ionicons'
 import { useNavigate } from 'react-router-dom';

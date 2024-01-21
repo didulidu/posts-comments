@@ -1,6 +1,4 @@
-import { Comment } from "../types/Comment";
-import { Post } from "../types/Post";
-import { User } from "../types/User";
+import { Post, User, Comment } from "../types";
 import { PostsState } from "./PostsContext";
 
 export type Action =

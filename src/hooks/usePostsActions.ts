@@ -1,9 +1,9 @@
 import { useCallback, useContext } from 'react';
 import { PostsContext, PostsDispatchContext } from '../context/PostsContext';
-import { fetchPostById, fetchPosts } from '../services/postService';
-import { fetchUsers } from '../services/userService';
+import postService from '../services/postService';
+import userService from '../services/userService';
 import { User, Post } from '../types';
-import { fetchCommentsByPost } from '../services/commentService';
+import commentService from '../services/commentService';
 import useCache from './useCache';
 import { getUserByUsername } from '../utils/users';
 
@@ -15,7 +15,7 @@ const usePostsActions = () => {
     const getPostsAndUsers = useCallback(async () => {
         dispatch?.({ type: 'SET_LOADING', payload: true });
         try {
-            const [postsData, usersData] = await Promise.all([fetchPosts(), fetchUsers()]);
+            const [postsData, usersData] = await Promise.all([postService.fetchPosts(), userService.fetchUsers()]);
 
             const newUsersMap = usersData.reduce((acc, user) => {
                 acc[user.id] = user;
@@ -38,7 +38,7 @@ const usePostsActions = () => {
                 dispatch?.({ type: 'SET_COMMENTS', payload: { postId, comments: cachedComments } });
                 return
             }
-            const comments = await fetchCommentsByPost(postId);
+            const comments = await commentService.fetchCommentsByPost(postId);
 
             setItem(`commentsForPost-${postId}`, comments)
             dispatch?.({ type: 'SET_COMMENTS', payload: { postId, comments } });
@@ -52,7 +52,7 @@ const usePostsActions = () => {
         try {
             const user = getUserByUsername(usersMap, username)
             if (user || !username) {
-                const postsData = await fetchPosts(user?.id)
+                const postsData = await postService.fetchPosts(user?.id)
                 dispatch?.({ type: "SET_POSTS", payload: postsData })
                 return
             }
@@ -72,7 +72,7 @@ const usePostsActions = () => {
 
     const getPostById = useCallback(async (postId: Post['id']) => {
         try {
-            const post = await fetchPostById(postId);
+            const post = await postService.fetchPostById(postId);
             dispatch?.({ type: "SET_CURRENT_POST", payload: post })
         } catch (err) {
             if (err instanceof Error) {
@@ -85,7 +85,7 @@ const usePostsActions = () => {
 
     const getPostWithComments = useCallback(async (postId: Post['id']) => {
         try {
-            const [post, comments] = await Promise.all([fetchPostById(postId), fetchCommentsByPost(postId)]);
+            const [post, comments] = await Promise.all([postService.fetchPostById(postId), commentService.fetchCommentsByPost(postId)]);
             dispatch?.({ type: "SET_CURRENT_POST", payload: post })
             dispatch?.({ type: 'SET_COMMENTS', payload: { postId, comments } }); dispatch?.({ type: "SET_CURRENT_POST", payload: post })
         } catch (err) {

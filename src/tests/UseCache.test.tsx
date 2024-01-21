@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import React, { renderHook, act } from '@testing-library/react';
 import useCache from '../hooks/useCache';
 

@@ -1,7 +1,7 @@
 import postsReducer, { Action } from '../context/postsReducer';
 import { PostsState } from '../context/PostsContext';
 import { User, Post, Comment } from '../types';
-import { mockUsers } from './mockedData/mockUsers';
+import { mockUsersMap } from './mockedData/mockUsers';
 import { mockPosts } from './mockedData/mockPosts';
 import { mockComments } from './mockedData/mockComments';
 
@@ -37,7 +37,7 @@ describe('postReducer', () => {
     });
 
     test('handles SET_USERS action', () => {
-        const usersMap: Record<User['id'], User> = mockUsers
+        const usersMap: Record<User['id'], User> = mockUsersMap
         const action: Action = { type: 'SET_USERS', payload: usersMap };
         const newState = postsReducer(initialState, action);
         expect(newState.usersMap).toEqual(usersMap);

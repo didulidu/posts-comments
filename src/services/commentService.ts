@@ -1,4 +1,4 @@
-import { HttpService } from './httpService'; // Adjust the import path as needed
+import { HttpService } from './httpService';
 import { Comment, Post } from "../types";
 
 
